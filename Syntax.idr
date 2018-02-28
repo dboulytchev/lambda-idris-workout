@@ -24,7 +24,6 @@ implementation Show Term where
     bbr = case b of
             (_ :@ _) => (\s => "(" ++ s ++ ")")
             _        => (\s => s)
-       
   
 implementation Eq Term where
   (:\ a)   == (:\ b)   = a == b
@@ -70,7 +69,7 @@ subst s@(:\ n) m x = :\ (subst n (m+1) $ lift 0 x)
 subst (a :@ b) n x = subst a n x :@ subst b n x
 
 eval0 : Term -> Term
-eval0   ((:\ a) :@ b) = subst a 0 b
+eval0   ((:\ a) :@ b) = subst a 1 b
 eval0 s@(:? _)        = s
 eval0 s@(:! _)        = s
 eval0   (:\ a)        = :\ (eval0 a)
